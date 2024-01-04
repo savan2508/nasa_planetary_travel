@@ -12,14 +12,27 @@ mongoose.connection.once("open", () => {
 
 mongoose.connection.on("error", (err) => {
   console.error(err);
+  // Throw an error to propagate it to the calling code
+  throw new Error("MongoDB connection error");
 });
 
 async function mongoConnect() {
-  await mongoose.connect(uri);
+  try {
+    await mongoose.connect(uri);
+  } catch (error) {
+    console.error("Error connecting to MongoDB:", error);
+    throw error; // Propagate the error
+  }
 }
 
 async function mongoDisconnect() {
-  await mongoose.disconnect();
+  try {
+    await mongoose.disconnect();
+    console.log("MongoDB connection closed.");
+  } catch (error) {
+    console.error("Error disconnecting from MongoDB:", error);
+    throw error; // Propagate the error
+  }
 }
 
 module.exports = { mongoConnect, mongoDisconnect };
