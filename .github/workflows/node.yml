@@ -8,6 +8,7 @@ jobs:
   build:
     env:
       CI: true
+      MONGO_URL: mongodb://localhost/test
     runs-on: ubuntu-latest
     strategy:
       matrix:
