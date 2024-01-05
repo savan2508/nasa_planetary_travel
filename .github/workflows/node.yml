@@ -22,12 +22,17 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
+      - name: Debug Secrets
+        run: |
+          echo "MongoDB Username: ${{ secrets.MONGO_DB_USERNAME }}"
+          echo "MongoDB Password: ${{ secrets.MONGO_DB_PASSWORD }}"
+
       - name: MongoDB in GitHub Actions
         uses: supercharge/mongodb-github-action@1.10.0
         with:
           mongodb-version: ${{ matrix.mongodb-version }}
-          mongodb-username: ${{ secrets.MONGODB_USERNAME }}
-          mongodb-password: ${{ secrets.MONGODB_PASSWORD }}
+          mongodb-username: ${{ secrets.MONGO_DB_USERNAME }}
+          mongodb-password: ${{ secrets.MONGO_DB_PASSWORD }}
           mongodb-db: test
       #          auth: 'true'
       #          username: ${{ secrets.MONGODB_USERNAME }}
