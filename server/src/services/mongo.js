@@ -6,7 +6,7 @@ const mongoDBPassword = process.env.MONGO_DB_PASSWORD;
 
 const uri =
   process.env.MONGO_URL ||
-  `mongodb+srv://nasa-api:${mongoDBPassword}@nasacluster.b7jkqi7.mongodb.net/?retryWrites=true&w=majority`;
+  `mongodb+srv://nasa-api:${mongoDBPassword}@nasacluster.b7jkqi7.mongodb.net/?retryWrites=true&w=majority&appName=NASACluster`;
 
 mongoose.connection.once("open", () => {
   console.log("MongoDB connection ready!");
