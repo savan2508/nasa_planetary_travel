@@ -3,8 +3,6 @@ const axios = require("axios");
 const launchesDatabase = require("./launches.mongo");
 const planets = require("./planets.mongo");
 
-const launches = new Map();
-
 let defaultFlightNumber = 100;
 
 const SPACEX_API_URL = "https://api.spacexdata.com/v4/launches/query";
@@ -83,8 +81,12 @@ async function saveLaunch(launch) {
   );
 }
 
-async function getAllLaunches() {
-  return launchesDatabase.find({}, { _id: 0, __v: 0 });
+async function getAllLaunches(skip, limit) {
+  return launchesDatabase
+    .find({}, { _id: 0, __v: 0 })
+    .sort({ flightNumber: 1 })
+    .skip(skip)
+    .limit(limit);
 }
 
 async function findLaunch(filter) {
